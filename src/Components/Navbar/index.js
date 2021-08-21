@@ -12,11 +12,6 @@ import { Link } from "react-router-dom";
 import { logout } from "../../store/actions/authActions";
 import { connectToSocket } from "../../store/actions/socketActions";
 export const Navbar = ({ user, logout, connectToSocket }) => {
-  React.useEffect(() => {
-    if (user) {
-      connectToSocket();
-    }
-  }, [user]);
   return (
     <div>
       {user && (
@@ -32,7 +27,9 @@ export const Navbar = ({ user, logout, connectToSocket }) => {
             </Link>
           </Menu.Item>
           <Menu.Item key="3" className="navItem" style={{ marginLeft: "auto" }}>
-            <RiMessage2Fill size="25" />
+            <Link to={`/chat`}>
+              <RiMessage2Fill size="25" />{" "}
+            </Link>
           </Menu.Item>
           <Menu.Item key="4" className="navItem">
             <Link to={`/profile/${user?.username}`}>

@@ -17,6 +17,7 @@ export const Profile = ({
   profile,
   error,
   getProfile,
+  user,
 }) => {
   const [showAskModal, setShowAskModal] = React.useState(false);
 
@@ -52,14 +53,17 @@ export const Profile = ({
               <span className="sec-text">@{profile.username}</span>
             </div>
             <div className="row justify-content-center text-center mx-5 mt-2">
-              <div className="col-sm ml-5">
-                <Button
-                  className="main-button my-1"
-                  style={{ width: "100px", height: "35px" }}
-                >
-                  <RiUserFollowFill size="20" />
-                </Button>
-              </div>
+              {user && user.id != profile.id && (
+                <div className="col-sm ml-5">
+                  <Button
+                    className="main-button my-1"
+                    style={{ width: "100px", height: "35px" }}
+                  >
+                    <RiUserFollowFill size="20" />
+                  </Button>
+                </div>
+              )}
+
               <div className="col-sm mr-5">
                 <Button
                   className="main-button my-1"
@@ -71,17 +75,21 @@ export const Profile = ({
                   />
                 </Button>
               </div>
-              <div className="col-sm mr-5">
-                <Button
-                  className="main-button my-1"
-                  style={{ width: "100px", height: "35px" }}
-                >
-                  <RiMessage3Fill size="20" />
-                </Button>
-              </div>
+              {user && user.id != profile.id && (
+                <div className="col-sm mr-5">
+                  <Button
+                    className="main-button my-1"
+                    style={{ width: "100px", height: "35px" }}
+                  >
+                    <RiMessage3Fill size="20" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
-          {profile?.id && <Posts userId={profile?.id} />}
+          {profile?.id && (
+            <Posts userId={profile?.id} myProfile={profile?.id === user?.id} />
+          )}
         </>
       )}
       {error && (
@@ -100,6 +108,7 @@ export const Profile = ({
 
 const mapStateToProps = (state) => ({
   profile: state.profile.profile,
+  user: state.auth.user,
   error: state.profile.error,
 });
 

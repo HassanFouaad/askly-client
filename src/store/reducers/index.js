@@ -5,6 +5,7 @@ import questions from "./questionsReducer";
 import posts from "./postReducer";
 import socket from "./socketReducer";
 import chat from "./chatReducer";
+import messages from "./messageReducer";
 export default combineReducers({
   auth,
   questions,
@@ -12,4 +13,5 @@ export default combineReducers({
   posts,
   socket,
   chat,
+  messages,
 });

@@ -5,7 +5,7 @@ import Posts from "../../Components/Posts";
 export const Home = ({ user }) => {
   return (
     <div className="main-page">
-      <Posts />
+      <Posts myProfile={user ? true : false} />
     </div>
   );
 };

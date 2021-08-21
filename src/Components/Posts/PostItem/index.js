@@ -1,11 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { RiMoreFill } from "react-icons/ri";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { Avatar } from "antd";
 import { useHistory } from "react-router-dom";
+import { deletePost } from "../../../store/actions/postActions";
 
-export const PostItem = ({ post, userId }) => {
+export const PostItem = ({ post, userId, user, deletePost }) => {
   const history = useHistory();
+  const deleteSubmit = () => {
+    deletePost(post.id);
+  };
   return (
     <div className="col-md-12 col-sm mainBox px-5 my-2 py-4">
       {!userId && post.user && (
@@ -30,7 +34,7 @@ export const PostItem = ({ post, userId }) => {
       )}
       <div className="row">
         <div className="col-md-11">
-          {post.question.answer ? (
+          {post.question?.answer ? (
             <div className="mb-3">
               <div className="row justify-content-center">
                 <div className="col-md-11 text-start">
@@ -40,7 +44,9 @@ export const PostItem = ({ post, userId }) => {
                       src={post.question?.asker?.image}
                       style={{ cursor: "pointer" }}
                       onClick={() =>
-                        history.push(`/profile/${post.question?.asker?.username}`)
+                        history.push(
+                          `/profile/${post.question?.asker?.username}`
+                        )
                       }
                     />
                   )}
@@ -52,22 +58,30 @@ export const PostItem = ({ post, userId }) => {
           )}
           <div>
             <span className="main-text">
-              {post.question.answer ? post.question.answer : post.text}
+              {post.question?.answer ? post?.question?.answer : post?.text}
             </span>
           </div>
         </div>
-        <div className="col-md-1 text-end">
-          <span>
-            <RiMoreFill className="main-icon" color="var(--primaryColor)" />
-          </span>
-        </div>
+        {user && user.id === post.userId && (
+          <div className="col-md-1 text-end">
+            <span>
+              <RiDeleteBinLine
+                className="main-icon"
+                color="var(--primaryColor)"
+                onClick={deleteSubmit}
+              />
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { deletePost };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem);

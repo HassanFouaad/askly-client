@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import QuestionItem from "../QuestionItem";
 import ThinkingEmoji from "../../../Assets/thinking.png";
-import CoolEmoji from "../../../Assets/cool.png";
+
 import { getSentQuestions } from "../../../store/actions/questionsActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Row } from "reactstrap";

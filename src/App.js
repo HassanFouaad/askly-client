@@ -2,7 +2,7 @@ import Main from "./Main";
 import "./App.css";
 function App() {
   return (
-    <div className='App'>
+    <div className="App" style={{ overflowX: "hidden" }}>
       <Main />
     </div>
   );

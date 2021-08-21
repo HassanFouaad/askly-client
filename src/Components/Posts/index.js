@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { getPosts } from "../../store/actions/postActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Row } from "reactstrap";
-import { PostItem } from "./PostItem";
-export const Posts = ({ userId, posts, getPosts, thisPage }) => {
+import PostItem from "./PostItem";
+import CreatePost from "./CreatePost";
+export const Posts = ({ userId, posts, getPosts, thisPage, myProfile }) => {
   React.useEffect(() => {
     let query = { userId, limit: 20 };
     if (!userId) query.timeLine = true;
@@ -17,6 +18,7 @@ export const Posts = ({ userId, posts, getPosts, thisPage }) => {
 
   return (
     <div className="container">
+      {myProfile && <CreatePost />}
       <Row className="mx-md-5">
         <InfiniteScroll
           dataLength={posts.length} //This is important field to render the next data

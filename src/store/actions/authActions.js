@@ -40,6 +40,7 @@ export const loadUser = () => async (dispatch) => {
   let token = localStorage.getItem("token");
   let user = localStorage.getItem("user");
   if (token) {
+    dispatch(connectToSocket());
     return dispatch({
       type: USER_LOADED,
       payload: { token: token, user: JSON.parse(user) },

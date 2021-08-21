@@ -6,17 +6,25 @@ import {
 
 import { notification } from "antd";
 import { tokenConfig } from "./authActions";
+import { newMessageSent } from "./messageActions";
 
 const io = require("socket.io-client");
 
-export const connectToSocket = () => (disaptch, getState) => {
+export const connectToSocket = () => (dispatch, getState) => {
   try {
-    const socket = io.connect("ws://localhost:7500", {
+    const socket = io.connect("app-5471f928-0f92-4436-8f48-e9fedb3d6cfa.cleverapps.io", {
       query: { token: tokenConfig(getState).headers["Authorization"] },
     });
     socket.on("connect", () => {
-      console.log("Socket server connected");
-      disaptch({ type: SOCKET_CONNECT, payload: socket });
+      dispatch({ type: SOCKET_CONNECT, payload: socket });
+
+      socket.on("newMessageDone", (data) => {
+        dispatch(newMessageSent(data));
+      });
+
+      socket.on("newMessage", (data) => {
+        dispatch(newMessageSent(data));
+      });
     });
   } catch (error) {
     console.log(error);

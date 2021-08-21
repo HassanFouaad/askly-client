@@ -46,3 +46,70 @@ export const getPosts = (query, page, notState) => (dispatch, getState) => {
       return err;
     });
 };
+
+export const createPost = (data) => (dispatch, getState) => {
+  dispatch({
+    type: GET_POST_LOADING,
+  });
+  return axios
+    .post(apis.post, data, {
+      ...tokenConfig(getState),
+    })
+    .then((res) => {
+      const {
+        data: { data },
+      } = res;
+
+      let posts = getState().posts?.posts;
+      let thisPage = getState().posts?.thisPage;
+      let allPages = getState().posts?.allPages;
+      let newPosts = [data, ...posts];
+
+      dispatch({
+        type: GET_POSTS,
+        payload: {
+          result: newPosts,
+          thisPage,
+          allPages,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+};
+
+export const deletePost = (postId) => (dispatch, getState) => {
+  dispatch({
+    type: GET_POST_LOADING,
+  });
+  return axios
+    .delete(apis.post, {
+      ...tokenConfig(getState),
+      params: { postId },
+    })
+    .then((res) => {
+      const {
+        data: { data },
+      } = res;
+
+      let posts = getState().posts?.posts;
+      let thisPage = getState().posts?.thisPage;
+      let allPages = getState().posts?.allPages;
+      let newPosts = posts.filter((p) => p.id !== postId);
+
+      dispatch({
+        type: GET_POSTS,
+        payload: {
+          result: newPosts,
+          thisPage,
+          allPages,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+};
