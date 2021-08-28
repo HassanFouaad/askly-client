@@ -40,7 +40,7 @@ export const SentQuestions = ({ getSentQuestions }) => {
   };
 
   return (
-    <div className="container mainBox">
+    <div className="container mainBox px-2">
       <h4 className="tex-left head-text">
         Sent Questions <img src={ThinkingEmoji} height="20px" />
       </h4>

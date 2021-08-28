@@ -10,8 +10,7 @@ import {
 } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { logout } from "../../store/actions/authActions";
-import { connectToSocket } from "../../store/actions/socketActions";
-export const Navbar = ({ user, logout, connectToSocket }) => {
+export const Navbar = ({ user, logout }) => {
   return (
     <div>
       {user && (
@@ -36,7 +35,7 @@ export const Navbar = ({ user, logout, connectToSocket }) => {
               <RiUser2Fill size="25" />
             </Link>
           </Menu.Item>
-          <Menu.Item className="navItem" onClick={logout}>
+          <Menu.Item className="navItem" onClick={() => logout()} >
             <RiLogoutBoxFill size="25" />
           </Menu.Item>
         </Menu>
@@ -49,6 +48,6 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-const mapDispatchToProps = { logout, connectToSocket };
+const mapDispatchToProps = { logout };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

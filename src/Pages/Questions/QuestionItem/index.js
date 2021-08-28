@@ -4,9 +4,11 @@ import { RiQuestionAnswerFill, RiCloseCircleFill } from "react-icons/ri";
 import { Form, Input } from "antd";
 import { answerQuestion } from "../../../store/actions/questionsActions";
 import Avatar from "antd/lib/avatar/avatar";
+
 export const QuestionItem = ({ question, answerQuestion, sent }) => {
   const [form] = Form.useForm();
   const [answerBox, setAnswerBox] = React.useState(false);
+
   function handleSubmit() {
     form.validateFields().then((values) => {
       answerQuestion({ ...values, questionId: question.id });
@@ -15,11 +17,11 @@ export const QuestionItem = ({ question, answerQuestion, sent }) => {
 
   return (
     <div
-      className="col-md-12 col-sm questionItem px-5 my-2"
+      className="col-md-12 col-sm questionItem px-5 py-3 my-2"
       onClick={() => !answerBox && setAnswerBox(true)}
     >
       <div className="row justify-content-center">
-        <div className="col-md-1 my-1 text-start">
+        <div className="col-md-1 my-1 text-start mb-3">
           <Avatar src={sent ? question.user?.image : question?.asker?.image} />
         </div>
         <div className="col-md-11 text-start">
@@ -29,13 +31,13 @@ export const QuestionItem = ({ question, answerQuestion, sent }) => {
 
       {answerBox && !sent && (
         <div className={answerBox ? "transFormText" : ""}>
-          <Form className={`text-center row`} form={form}>
+          <Form className={`text-center row mt-3`} form={form}>
             <Form.Item
               name="answer"
               className="text-center col-md-8"
               rules={[
                 { required: true, message: "Answer can not be empty" },
-                { max: 100, message: "Exceeded maximum character length" },
+                { max: 5000, message: "Exceeded maximum character length" },
               ]}
             >
               <Input.TextArea

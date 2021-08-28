@@ -54,7 +54,7 @@ export default function store(state = initialState, action) {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        isAuthenticated: true,
+        isAuthenticated: false,
         isLoading: false,
         isNewlyRegged: true,
         user: action.payload,

@@ -9,7 +9,7 @@ export const Chat = ({ loading, chats, getChats, thisPage, user }) => {
   }, []);
   return (
     <div className="container">
-      <div className="mainBox my-4 row">
+      <div className="mainBox my-4 row px-2">
         {chats &&
           user &&
           chats.length != 0 &&

@@ -53,7 +53,7 @@ export const SingleChat = ({
 
   return (
     <div className="container">
-      <div className="mainBox my-2 px-3 py-2">
+      <div className="mainBox my-2 px-0 py-2">
         {chat && sender && (
           <>
             <div className="row questionItem">
@@ -69,9 +69,9 @@ export const SingleChat = ({
               </div>
             </div>
             <div
-              className="questionItem my-2 "
+              className="questionItem my-0 "
               style={{
-                height: "380px",
+                height: "350px",
                 overflow: "auto",
               }}
               id="messageContainer"

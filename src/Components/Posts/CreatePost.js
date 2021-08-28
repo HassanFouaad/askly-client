@@ -22,7 +22,7 @@ export const CreatePost = ({ createPost }) => {
             className="text-center my-2"
             rules={[
               { required: true, message: "Post can not be empty" },
-              { max: 100, message: "Exceeded maximum character length" },
+              { max: 5000, message: "Exceeded maximum character length" },
             ]}
           >
             <Input.TextArea

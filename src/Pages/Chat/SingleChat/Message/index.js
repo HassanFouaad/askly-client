@@ -22,6 +22,8 @@ export const Message = ({ message, user }) => {
                 style={{
                   borderRadius: "15px",
                   wordBreak: "break-word",
+                  color: sender.id == user.id ? "black" : "white",
+                  fontWeight:"bold",
                   backgroundColor:
                     sender.id == user.id ? "var(--primaryColor)" : "#2E2F41",
                 }}

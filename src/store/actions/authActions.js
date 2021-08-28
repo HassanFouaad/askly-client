@@ -5,6 +5,8 @@ import {
   USER_LOADED,
   USER_LOADING,
   LOGOUT_SUCCESS,
+  SOCKET_CONNECT_FAILED,
+  REGISTER_SUCCESS,
   /*  REGISTER_FAIL, */
 } from "./types";
 import axios from "axios";
@@ -32,15 +34,14 @@ export const tokenConfig = (getState) => {
   return config;
 };
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = () => async (dispatch, getState) => {
   dispatch({
     type: USER_LOADING,
   });
 
-  let token = localStorage.getItem("token");
-  let user = localStorage.getItem("user");
+  let token = localStorage.getItem("token") || getState().auth?.token;
+  let user = localStorage.getItem("user") || getState().auth?.user;
   if (token) {
-    dispatch(connectToSocket());
     return dispatch({
       type: USER_LOADED,
       payload: { token: token, user: JSON.parse(user) },
@@ -73,8 +74,7 @@ export const login = (dataForLogin) => (dispatch) => {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: { user, token },
-      });
-      /*  toastr.success("Welcome Back!", "You have successfully logged in"); */
+      }); /*  toastr.success("Welcome Back!", "You have successfully logged in"); */
     })
     .catch((error) => {
       let payload = {};
@@ -92,13 +92,53 @@ export const login = (dataForLogin) => (dispatch) => {
     });
 };
 
-export const logout = (message) => {
-  if (!message) {
-    /*    toastr.success("See you later", "You have successfully logged out"); */
-  }
-  return {
-    type: LOGOUT_SUCCESS,
+export const signup = (dataforregister, push) => (dispatch) => {
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
   };
+
+  axios
+    .post(apis.signup, dataforregister, config)
+    .then((res) => {
+      push?.push("/login");
+      dispatch({ type: REGISTER_SUCCESS });
+      /*  toastr.success("Welcome Back!", "You have successfully logged in"); */
+    })
+    .catch((error) => {
+      let payload = {};
+      if (error.response?.data) {
+        if (error?.response?.data?.error?.inputErrors) {
+          payload.inputErrors = error.response.data.error.inputErrors;
+        } else {
+          payload.error = error.response?.data?.error?.message;
+        }
+      }
+      dispatch({
+        type: LOGIN_FAIL,
+        payload,
+      });
+    });
+};
+
+export const logout = (message) => (dispatch, getState) => {
+  try {
+    if (!message) {
+      /*    toastr.success("See you later", "You have successfully logged out"); */
+    }
+    let socket = getState().socket?.socket;
+    socket?.disconnect();
+    socket.close();
+    dispatch({
+      type: SOCKET_CONNECT_FAILED,
+    });
+    return dispatch({
+      type: LOGOUT_SUCCESS,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const updateProfile = (data) => (dispatch, getState) => {

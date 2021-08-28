@@ -57,9 +57,7 @@ export const getChatMessages =
 
 export const sendNewMessage = (data) => (dispatch, getState) => {
   let socket = getState().socket.socket;
-  console.log(socket.emit);
-  if (!socket) return console.log("Error while socketing", socket);
-
+  if (!socket) return console.log("Error while socket", socket);
   socket.emit("newMessage", data);
 };
 
@@ -78,7 +76,7 @@ export const newMessageSent = (data) => (dispatch, getState) => {
         var d = new Date(b.createdAt);
         return c - d;
       });
-
+      console.log(newMessage,'from message action')
       dispatch({
         type: GET_MESSAGES,
         payload: {

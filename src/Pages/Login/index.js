@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Form, Input, Button, notification, Row } from "antd";
 import { login } from "../../store/actions/authActions";
+import { Link } from "react-router-dom";
+import MainLogo from "../../Assets/logo.png";
 export const Login = ({ login: loginAction, error, auth, history }) => {
   const onSubmit = (data) => {
     loginAction(data);
@@ -23,7 +25,7 @@ export const Login = ({ login: loginAction, error, auth, history }) => {
 
   return (
     <div className="login-page">
-      <div className="container text-center">
+      <div className="container text-center px-2">
         <Row
           type="flex"
           justify="center"
@@ -31,6 +33,7 @@ export const Login = ({ login: loginAction, error, auth, history }) => {
           style={{ minHeight: "100vh" }}
         >
           <Form onFinish={onSubmit} className="login-form text-center">
+            <img src={MainLogo} height="120px" />
             <Form.Item
               name="email"
               className="text-center"
@@ -57,6 +60,11 @@ export const Login = ({ login: loginAction, error, auth, history }) => {
             <Button type="primary" htmlType="submit" className="main-button">
               Login
             </Button>
+            <div className="mt-2">
+              <Link to="/register">
+                <span className="main-text">Sign up</span>
+              </Link>
+            </div>
           </Form>
         </Row>
       </div>

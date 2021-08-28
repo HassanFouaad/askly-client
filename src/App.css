@@ -8,7 +8,7 @@
 
 
 :root {
-  --primaryColor: #1F96E6;
+  --primaryColor: #fdd700;
   --mainDark: #25252B;
   --secColor: white;
   --terColor: #bb9416;
@@ -25,6 +25,15 @@
   --mainSpacing: 0.15em;
 }
 
+.ant-menu-item-selected {
+  background-color: var(--primaryColor) !important;
+  color: black !important;
+}
+
+.ant-menu-item:hover {
+  background-color: var(--primaryColor) !important;
+
+}
 
 .login-page {
   min-height: 100vh !important;
@@ -63,7 +72,7 @@
 .main-button {
   background-color: var(--primaryColor) !important;
   border-radius: 15px !important;
-  color: white !important;
+  color: black !important;
   border: 0px !important
 }
 
@@ -75,8 +84,8 @@
 }
 
 .notification-box {
-  background-color: white !important;
-  color: var(--primaryColor) !important;
+  background-color: var(--primaryColor) !important;
+  color: black !important;
 }
 
 .navItem {
@@ -107,7 +116,8 @@
 .head-text {
   color: var(--mainWhite) !important;
 }
-.askmodal{
+
+.askmodal {
   background: var(--mainDark) !important;
 }
 

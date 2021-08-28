@@ -4,5 +4,6 @@ import Questions from "./Questions";
 import Profile from "./Profile";
 import Chat from "./Chat";
 import SingleChat from "./Chat/SingleChat";
+import Signup from "./Signup";
 
-export { Login, Home, Questions, Profile, Chat, SingleChat };
+export { Signup, Login, Home, Questions, Profile, Chat, SingleChat };

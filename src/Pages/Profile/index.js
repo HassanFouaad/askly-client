@@ -66,13 +66,11 @@ export const Profile = ({
 
               <div className="col-sm mr-5">
                 <Button
+                  onClick={() => setShowAskModal(true)}
                   className="main-button my-1"
                   style={{ width: "100px", height: "35px" }}
                 >
-                  <RiQuestionFill
-                    size="20"
-                    onClick={() => setShowAskModal(true)}
-                  />
+                  <RiQuestionFill size="20" />
                 </Button>
               </div>
               {user && user.id != profile.id && (
