@@ -17,10 +17,10 @@ const initialState = {
 
 export default function postsReducer(state = initialState, action) {
   const { type, payload } = action;
+  console.log(type,payload)
   switch (type) {
     case GET_POSTS:
       return {
-        ...state,
         ...state,
         posts: payload.result,
         thisPage: payload.thisPage,

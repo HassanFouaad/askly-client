@@ -40,7 +40,7 @@ export const Login = ({
           style={{ minHeight: "100vh" }}
         >
           <Form onFinish={onSubmit} className="login-form text-center">
-          <img src={MainLogo} height="120px" />
+            <img src={MainLogo} height="120px" />
 
             <Form.Item
               {...(inputErrors && {

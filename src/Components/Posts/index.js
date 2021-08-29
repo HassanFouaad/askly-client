@@ -13,7 +13,10 @@ export const Posts = ({ userId, posts, getPosts, thisPage, myProfile }) => {
   }, [userId]);
 
   let fetchData = () => {
-    return getPosts({ userId, limit: 20 }, thisPage + 1);
+    return getPosts(
+      { userId, timeLine: userId ? false : true, limit: 20 },
+      thisPage + 1
+    );
   };
 
   return (
@@ -25,7 +28,7 @@ export const Posts = ({ userId, posts, getPosts, thisPage, myProfile }) => {
           next={fetchData}
           hasMore={true}
           refreshFunction={() => {
-            getPosts({ userId, limit: 20 }, 1);
+            getPosts({ userId, timeLine: userId ? false : true, limit: 20 }, 1);
           }}
           pullDownToRefresh
           pullDownToRefreshThreshold={50}

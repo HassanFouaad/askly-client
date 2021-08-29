@@ -63,6 +63,8 @@ export const createPost = (data) => (dispatch, getState) => {
       let posts = getState().posts?.posts;
       let thisPage = getState().posts?.thisPage;
       let allPages = getState().posts?.allPages;
+      data.liked = false;
+      data.likesCount = 0;
       let newPosts = [data, ...posts];
 
       dispatch({
@@ -112,4 +114,46 @@ export const deletePost = (postId) => (dispatch, getState) => {
       console.log(err);
       return err;
     });
+};
+
+export const likePost = (postId) => (dispatch, getState) => {
+  try {
+    let posts = getState().posts?.posts;
+    let thisPage = getState().posts?.thisPage;
+    let allPages = getState().posts?.allPages;
+    let objIndex = posts.findIndex((obj) => obj.id == postId);
+    posts[objIndex].liked = !posts[objIndex].liked;
+    posts[objIndex].liked == true
+      ? (posts[objIndex].likesCount = parseInt(posts[objIndex].likesCount) + 1)
+      : (posts[objIndex].likesCount = parseInt(posts[objIndex].likesCount) - 1);
+    dispatch({
+      type: GET_POSTS,
+      payload: {
+        result: posts,
+        thisPage,
+        allPages,
+      },
+    });
+
+    return axios
+      .put(
+        apis.postLike,
+        { postId },
+        {
+          ...tokenConfig(getState),
+        }
+      )
+      .then((res) => {
+        const {
+          data: { data },
+        } = res;
+      })
+      .catch((err) => {
+        console.log(err);
+
+        return err;
+      });
+  } catch (error) {
+    console.error(error);
+  }
 };

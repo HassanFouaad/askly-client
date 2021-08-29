@@ -128,8 +128,10 @@ export const logout = (message) => (dispatch, getState) => {
       /*    toastr.success("See you later", "You have successfully logged out"); */
     }
     let socket = getState().socket?.socket;
-    socket?.disconnect();
-    socket.close();
+    if (socket) {
+      socket?.disconnect();
+      socket?.close();
+    }
     dispatch({
       type: SOCKET_CONNECT_FAILED,
     });
