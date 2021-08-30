@@ -2,6 +2,7 @@
   "name": "askly",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -15,6 +16,7 @@
     "react-icons": "^4.2.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-infinite-scroll-reverse": "^2.0.2",
+    "react-loading-overlay": "^1.0.1",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

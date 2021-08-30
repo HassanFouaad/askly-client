@@ -27,7 +27,7 @@ export const CreatePost = ({ createPost }) => {
           >
             <Input.TextArea
               name="answer"
-              placeholder="What's going on?"
+              placeholder="Tell stalkers something!"
               className="answer-area"
             />
           </Form.Item>

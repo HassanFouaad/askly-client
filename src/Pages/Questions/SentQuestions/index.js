@@ -7,7 +7,8 @@ import { getSentQuestions } from "../../../store/actions/questionsActions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Row } from "reactstrap";
 import { useEffect } from "react";
-export const SentQuestions = ({ getSentQuestions }) => {
+import { Loader } from "../../../Components/Loader";
+export const SentQuestions = ({ getSentQuestions ,loading}) => {
   const [data, setData] = React.useState({
     questions: [],
     thisPage: 1,
@@ -38,7 +39,7 @@ export const SentQuestions = ({ getSentQuestions }) => {
   let fetchData = () => {
     return getQues(thisPage + 1);
   };
-
+  if (loading) return <Loader />;
   return (
     <div className="container mainBox px-2">
       <h4 className="tex-left head-text">
@@ -64,7 +65,9 @@ export const SentQuestions = ({ getSentQuestions }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  loading:state.questions.loading
+});
 
 const mapDispatchToProps = { getSentQuestions };
 

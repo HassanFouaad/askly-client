@@ -5,7 +5,15 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Row } from "reactstrap";
 import PostItem from "./PostItem";
 import CreatePost from "./CreatePost";
-export const Posts = ({ userId, posts, getPosts, thisPage, myProfile }) => {
+import { Loader } from "../Loader";
+export const Posts = ({
+  userId,
+  posts,
+  getPosts,
+  thisPage,
+  myProfile,
+  loading,
+}) => {
   React.useEffect(() => {
     let query = { userId, limit: 20 };
     if (!userId) query.timeLine = true;
@@ -18,9 +26,10 @@ export const Posts = ({ userId, posts, getPosts, thisPage, myProfile }) => {
       thisPage + 1
     );
   };
-
+  /* if (loading) return ; */
   return (
     <div className="container">
+      {loading ? <Loader isActive={loading} /> : <></>}
       {myProfile && <CreatePost />}
       <Row className="mx-md-5">
         <InfiniteScroll
@@ -52,6 +61,7 @@ export const Posts = ({ userId, posts, getPosts, thisPage, myProfile }) => {
 
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
+  loading: state.posts.loading,
   thisPage: state.posts.thisPage,
 });
 

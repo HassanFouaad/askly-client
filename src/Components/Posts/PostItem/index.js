@@ -31,9 +31,10 @@ const PostItem = ({
   return (
     <>
       {post && (
-        <div className="col-md-12 col-sm mainBox px-3 my-2 py-4">
+        <div className="col-md-12 col-sm mainBox px-2 my-2 py-2">
+          <div className="questionItem">
           {post?.question?.answer ? (
-            <div className="mb-3 questionItem px-3">
+            <div className="questionItem px-3">
               <div className="row justify-content-end">
                 <div className="col-md-11 text-end">
                   <span className="sec-text mx-2">{post.question.text}</span>
@@ -54,10 +55,9 @@ const PostItem = ({
           ) : (
             <></>
           )}
-          <div className="questionItem">
             {!userId && post.user && (
               <div className="row my-2 justify-content-start">
-                <div className="col-2 text-start">
+                <div className="col-md-1 col-2 me-0 ms-2 text-start">
                   <Avatar
                     src={post?.user?.image}
                     style={{ cursor: "pointer" }}
@@ -66,7 +66,7 @@ const PostItem = ({
                     }
                   />
                 </div>
-                <div className="col-9 text-start">
+                <div className="col-md-8 col-2 ms-0 text-start">
                   <span
                     className="question-text"
                     style={{ cursor: "pointer" }}
@@ -79,7 +79,7 @@ const PostItem = ({
                 </div>
               </div>
             )}
-            <div className="row">
+            <div className="row postRow mx-2 py-0">
               <div className="col-md-10 mt-3 mx-2">
                 <div>
                   <span className="main-text">
@@ -89,34 +89,42 @@ const PostItem = ({
                   </span>
                 </div>
               </div>
-              {user && user.id === post.userId && (
-                <div className="col-md-1 text-end">
-                  <span>
-                    <RiDeleteBinLine
-                      className="main-icon"
-                      color="var(--primaryColor)"
-                      onClick={deleteSubmit}
-                    />
-                  </span>
-                </div>
-              )}
             </div>
             {typeof liked != "undefined" && (
-              <div className="row my-3 mx-2">
+              <div className="row my-1 mx-2 justify-content-end text-end">
+                <div className="col-sm-1 text-end"></div>
+                {user && user.id === post.userId && (
+                  <div className="col-sm-1 text-end">
+                    <span>
+                      <RiDeleteBinLine
+                        className="mx-2 main-icon"
+                        color="var(--primaryColor)"
+                        onClick={deleteSubmit}
+                      />
+                    </span>
+                  </div>
+                )}
                 <div
-                  className="col"
+                  className="col-sm-1"
                   onClick={() => {
                     setLiked(!post.liked);
                     likePostAction(post.id);
                   }}
                 >
+                  
+                  {post.likesCount}
                   {liked == true ? (
-                    <AiFillHeart color="var(--primaryColor)" className=" mx-2 main-icon" />
+                    <AiFillHeart
+                      color="var(--primaryColor)"
+                      className="mx-2 main-icon"
+                    />
                   ) : (
-                    <AiOutlineHeart color="var(--primaryColor)" className=" mx-2 main-icon" />
+                    <AiOutlineHeart
+                      color="var(--primaryColor)"
+                      className="mx-2 main-icon"
+                    />
                   )}
-
-                  <span className="mt-2">{post.likesCount}</span>
+                  
                 </div>
               </div>
             )}

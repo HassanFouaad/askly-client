@@ -10,7 +10,7 @@ export const Questions = ({ getQuestions, questions, thisPage }) => {
   const { TabPane } = Tabs;
   return (
     <div className="main-page container text-center">
-      <Tabs defaultActiveKey="2">
+      <Tabs defaultActiveKey="1">
         <TabPane
           tab={
             <span style={{ color: "white" }}>

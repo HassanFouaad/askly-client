@@ -1,7 +1,7 @@
 .App {
-
   background-color: var(--mainDark) !important;
   min-height: 100vh !important;
+  padding-top: 7%
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Cairo&display=swap");
@@ -23,6 +23,12 @@
   --mainBlack: #2222;
   --mainTransition: all 0.3s ease-in-out;
   --mainSpacing: 0.15em;
+  --thirdColor: #2E2F41
+}
+
+
+.postRow {
+  border-radius: 15px;
 }
 
 .ant-menu-item-selected {
@@ -84,19 +90,27 @@
 }
 
 .notification-box {
+  position: sticky !important;
+  margin-top: 50px !important;
   background-color: var(--primaryColor) !important;
   color: black !important;
 }
 
 .navItem {
   border-radius: 8px !important;
+  color: var(--primaryColor) !important;
+}
+
+.nav-link {
+  color: var(--primaryColor) !important;
+}
+
+.nav-link:hover {
+  color: var(--mainWhite) !important;
 }
 
 .navBar {
-  display: flex !important;
   background-color: #2E2F41 !important;
-  padding-top: 5px !important;
-  padding-bottom: 5px !important;
 }
 
 .mainBox {
@@ -104,6 +118,10 @@
   background-color: #2E2F41;
   padding: 50px !important;
   border-radius: 15px !important;
+  opacity: 1;
+  -webkit-transition: opacity 300ms, visibility 300ms;
+  transition: opacity 3000ms, visibility 300ms;
+  animation: fade .5s;
 }
 
 .mainBox2 {
@@ -111,6 +129,7 @@
   background-color: #2E2F41;
   padding: 30px !important;
   border-radius: 15px !important;
+  transition: height 0.25s linear;
 }
 
 .head-text {
@@ -119,13 +138,18 @@
 
 .askmodal {
   background: var(--mainDark) !important;
+  
 }
 
 .questionItem {
   background-color: var(--mainDark);
   padding: 10px !important;
   border-radius: 15px !important;
-  color: white
+  color: white;
+  opacity: 1;
+  -webkit-transition: opacity 600ms, visibility 600ms;
+  transition: opacity 600ms, visibility 600ms;
+  animation: fade 1s;
 }
 
 .question-text {
@@ -138,6 +162,7 @@
 .main-icon {
   font-size: 25px !important;
   transition: color 0.4s !important;
+  transition: height 0.25s linear;
 }
 
 .main-icon:hover {
@@ -188,6 +213,9 @@
   }
 }
 
+
+
+
 .main-text {
   font-family: 'Cairo';
   font-weight: 600;
@@ -233,4 +261,10 @@
   font-family: 'Cairo';
   font-size: 40px;
   font-weight: bolder;
+}
+
+@media only screen and (max-width: 530px) {
+  .App {
+    padding-top: 120px;
+  }
 }

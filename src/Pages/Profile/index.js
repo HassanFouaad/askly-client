@@ -10,6 +10,8 @@ import { getProfile } from "../../store/actions/profileActions";
 import Posts from "../../Components/Posts";
 import SadEmoji from "../../Assets/sad.png";
 import AskModal from "./Ask";
+import SendMessage from "./SendMessage";
+import { Loader } from "../../Components/Loader";
 export const Profile = ({
   match: {
     params: { username },
@@ -18,19 +20,28 @@ export const Profile = ({
   error,
   getProfile,
   user,
+  loading,
 }) => {
   const [showAskModal, setShowAskModal] = React.useState(false);
+  const [sendMessage, setsendMessage] = React.useState(false);
 
   React.useEffect(() => {
     getProfile({ username });
   }, [username]);
-
+  if (loading) return <Loader isActive={true}/>;
   return (
     <div className="main-page">
       {showAskModal && (
         <AskModal
           showAskModal={showAskModal}
           setAskModal={setShowAskModal}
+          profile={profile}
+        />
+      )}
+      {sendMessage && (
+        <SendMessage
+          showAskModal={sendMessage}
+          setAskModal={setsendMessage}
           profile={profile}
         />
       )}
@@ -76,6 +87,7 @@ export const Profile = ({
               {user && user.id != profile.id && (
                 <div className="col-sm mr-5">
                   <Button
+                    onClick={() => setsendMessage(true)}
                     className="main-button my-1"
                     style={{ width: "100px", height: "35px" }}
                   >
@@ -106,6 +118,7 @@ export const Profile = ({
 
 const mapStateToProps = (state) => ({
   profile: state.profile.profile,
+  loading: state.profile.loading,
   user: state.auth.user,
   error: state.profile.error,
 });

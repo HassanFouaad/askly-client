@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Menu } from "antd";
 import {
   RiQuestionnaireFill,
   RiHome2Fill,
@@ -10,36 +9,45 @@ import {
 } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { logout } from "../../store/actions/authActions";
-export const Navbar = ({ user, logout }) => {
+import { Navbar, Nav, NavItem, NavbarBrand, NavLink } from "reactstrap";
+import MainLogo from "../../Assets/logo.png";
+export const NavbarComponent = ({ user, logout }) => {
   return (
     <div>
-      {user && (
-        <Menu theme="dark" mode="horizontal" className="navBar">
-          <Menu.Item key="1" className="navItem mx-2">
-            <Link to="/">
-              <RiHome2Fill size="25" />
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="2" className="navItem mx-2">
-            <Link to="/questions">
-              <RiQuestionnaireFill size="25" />
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="3" className="navItem" style={{ marginLeft: "auto" }}>
-            <Link to={`/chat`}>
-              <RiMessage2Fill size="25" />{" "}
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="4" className="navItem">
-            <Link to={`/profile/${user?.username}`}>
-              <RiUser2Fill size="25" />
-            </Link>
-          </Menu.Item>
-          <Menu.Item className="navItem" onClick={() => logout()} >
+      <Navbar className="navBar fixed-top">
+        <NavbarBrand className="mx-auto mx-md-2" tag={Link} to="/">
+          <img src={MainLogo} height="50px" />
+        </NavbarBrand>
+        <Nav className="mx-auto mx-md-2">
+          {user && (
+            <>
+              <NavItem key="1" className="navItem mx-2">
+                <NavLink tag={Link} to="/">
+                  <RiHome2Fill size="25" />
+                </NavLink>
+              </NavItem>
+              <NavItem className="navItem mx-2">
+                <NavLink tag={Link} to="/questions">
+                  <RiQuestionnaireFill size="25" />
+                </NavLink>
+              </NavItem>
+              <NavItem className="navItem">
+                <NavLink tag={Link} to={`/chat`}>
+                  <RiMessage2Fill size="25" />{" "}
+                </NavLink>
+              </NavItem>
+              <NavItem className="navItem">
+                <NavLink tag={Link} to={`/profile/${user?.username}`}>
+                  <RiUser2Fill size="25" />
+                </NavLink>
+              </NavItem>{" "}
+            </>
+          )}
+          <NavLink className="navItem" tag={Link} onClick={() => logout()}>
             <RiLogoutBoxFill size="25" />
-          </Menu.Item>
-        </Menu>
-      )}
+          </NavLink>
+        </Nav>
+      </Navbar>
     </div>
   );
 };
@@ -50,4 +58,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { logout };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarComponent);
