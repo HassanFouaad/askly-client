@@ -123,7 +123,7 @@
 
 .questionItem {
   background-color: var(--mainDark);
-  padding: 10px !important;
+  padding: 10px;
   border-radius: 15px !important;
   color: white
 }
